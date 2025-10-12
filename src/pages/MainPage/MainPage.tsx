@@ -4,7 +4,7 @@ type MainPageProps = {
   offerCount: number;
 };
 
-function MainPage({ offerCount }: MainPageProps) {
+function MainPage({ offerCount }: MainPageProps): JSX.Element {
   const cards = Array.from({ length: offerCount }, (_, index) => (
     <CityCard key={index} />
   ));

@@ -1,4 +1,4 @@
-function FavoritesPage() {
+function FavoritesPage(): JSX.Element {
   return (
     <div className="page">
       <header className="header">
