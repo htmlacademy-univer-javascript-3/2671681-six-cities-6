@@ -8,7 +8,6 @@ import PrivateRoute from '../components/PrivateRoute/PrivateRoute';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { Offers } from '../types/offers';
 
-
 type AppProps = {
   offers: Offers;
 };
@@ -19,14 +18,16 @@ function App({ offers }: AppProps): JSX.Element {
       <Routes>
         <Route path={AppRoute.Main} element={<MainPage offers={offers} />} />
         <Route path={AppRoute.Login} element={<LoginPage />} />
-        <Route path={AppRoute.Favorites} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-            <FavoritesPage offers={offers} />
-          </PrivateRoute>
-        }
+        <Route
+          path={AppRoute.Favorites}
+          element={
+            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <FavoritesPage offers={offers} />
+            </PrivateRoute>
+          }
         />
         <Route path={AppRoute.OfferTemplate} element={<OfferPage />} />
-        <Route path='*' element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

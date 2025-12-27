@@ -11,6 +11,11 @@ export type WhoMeet = {
   description: string[];
 };
 
+export type Point = {
+  lat: number;
+  lng: number;
+};
+
 export type Offer = {
   id: number;
   premium: boolean;
@@ -23,6 +28,7 @@ export type Offer = {
   price: number;
   inside: string[];
   whoMeet: WhoMeet;
+  point: Point;
   otherOfferIds: number[];
 };
 
