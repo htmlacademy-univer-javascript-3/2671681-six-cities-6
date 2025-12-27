@@ -1,14 +1,16 @@
 import ListOffers from '../../components/ListOffers/ListOffers';
 import { Offers } from '../../types/offers';
 import { useState } from 'react';
+import Map from '../../components/Map/Map';
+import { city } from '../../mocks/city';
 
 type MainPageProps = {
   offers: Offers;
 };
 
 function MainPage({ offers }: MainPageProps): JSX.Element {
-
-  const [activeOffer, setActiveOffer] = useState(0);
+  const [activeOfferId, setActiveOfferId] = useState(0);
+  const activeOffer = offers.find((offer) => offer.id === activeOfferId);
 
   return (
     <div className="page page--gray page--main">
@@ -91,12 +93,14 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            <ListOffers offers={offers} setActive={(offerId: number) => {
-              setActiveOffer(offerId);
-            }}
+            <ListOffers
+              offers={offers}
+              setActive={(offerId: number) => {
+                setActiveOfferId(offerId);
+              }}
             />
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map selectedOffer={activeOffer} offers={offers} city={city} />
             </div>
           </div>
         </div>

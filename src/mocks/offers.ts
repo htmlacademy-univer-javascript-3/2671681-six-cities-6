@@ -43,6 +43,10 @@ export const offers: Offers = [
         'An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
       ],
     },
+    point: {
+      lat: 52.3909553943508,
+      lng: 4.85309666406198,
+    },
     otherOfferIds: [2, 3, 4],
   },
   {
@@ -86,6 +90,10 @@ export const offers: Offers = [
         'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
         'An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
       ],
+    },
+    point: {
+      lat: 52.3609553943508,
+      lng: 4.85309666406198,
     },
     otherOfferIds: [1, 3, 4],
   },
@@ -131,6 +139,10 @@ export const offers: Offers = [
         'An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
       ],
     },
+    point: {
+      lat: 52.3909553943508,
+      lng: 4.929309666406198,
+    },
     otherOfferIds: [2, 1, 4],
   },
   {
@@ -174,6 +186,10 @@ export const offers: Offers = [
         'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
         'An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
       ],
+    },
+    point: {
+      lat: 52.3809553943508,
+      lng: 4.939309666406198,
     },
     otherOfferIds: [2, 3, 1],
   },
@@ -219,6 +235,10 @@ export const offers: Offers = [
         'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
         'An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
       ],
+    },
+    point: {
+      lat: 52.1909553943508,
+      lng: 4.82309666406198,
     },
     otherOfferIds: [],
   },
