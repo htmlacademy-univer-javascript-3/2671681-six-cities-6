@@ -1,6 +1,6 @@
 type OfferCardRatingProps = {
   rating: number;
-}
+};
 
 function OfferCardRating({ rating }: OfferCardRatingProps): JSX.Element {
   const widthRating = `${(Math.round(rating) / 5) * 100}%`;

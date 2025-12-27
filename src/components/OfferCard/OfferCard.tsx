@@ -5,21 +5,28 @@ import { AppRoute } from '../../const';
 
 type OfferCardProps = {
   offer: Offer;
-  setActive: (offerId: number) => void;
-}
+  variant: string;
+  setActive?: (offerId: number) => void;
+};
 
-function OfferCard({ offer, setActive }: OfferCardProps): JSX.Element {
+function OfferCard({ offer, variant, setActive }: OfferCardProps): JSX.Element {
   return (
-    <article key={offer.id} className="cities__card place-card" onMouseEnter={() => {
-      setActive(offer.id);
-    }}
+    <article
+      key={offer.id}
+      className={`${variant}__card place-card`}
+      onMouseEnter={() => {
+        setActive?.(offer.id);
+      }}
+      onMouseLeave={() => {
+        setActive?.(0);
+      }}
     >
       {offer.premium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${variant}__image-wrapper place-card__image-wrapper`}>
         <Link to={AppRoute.Offer(offer.id)}>
           <img
             className="place-card__image"
@@ -36,11 +43,13 @@ function OfferCard({ offer, setActive }: OfferCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={
-            offer.bookmark
-              ? 'place-card__bookmark-button place-card__bookmark-button--active button'
-              : 'place-card__bookmark-button button'
-          } type="button"
+          <button
+            className={
+              offer.bookmark
+                ? 'place-card__bookmark-button place-card__bookmark-button--active button'
+                : 'place-card__bookmark-button button'
+            }
+            type="button"
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use href="#icon-bookmark"></use>

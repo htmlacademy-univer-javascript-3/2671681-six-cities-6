@@ -29,7 +29,6 @@ export type Offer = {
   inside: string[];
   whoMeet: WhoMeet;
   point: Point;
-  otherOfferIds: number[];
 };
 
 export type Offers = Offer[];

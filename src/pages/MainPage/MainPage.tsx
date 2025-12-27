@@ -1,4 +1,4 @@
-import ListOffers from '../../components/ListOffers/ListOffers';
+import OffersList from '../../components/OffersList/OffersList';
 import { Offers } from '../../types/offers';
 import { useState } from 'react';
 import Map from '../../components/Map/Map';
@@ -93,14 +93,19 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            <ListOffers
+            <OffersList
               offers={offers}
               setActive={(offerId: number) => {
                 setActiveOfferId(offerId);
               }}
             />
             <div className="cities__right-section">
-              <Map selectedOffer={activeOffer} offers={offers} city={city} />
+              <Map
+                variant="cities__map"
+                selectedOffer={activeOffer}
+                offers={offers}
+                city={city}
+              />
             </div>
           </div>
         </div>
