@@ -1,6 +1,6 @@
 import { Offers } from '../types/offers';
 
-export const offers: Offers = [
+export const nearbyOffers: Offers = [
   {
     id: 1,
     premium: true,
@@ -140,101 +140,6 @@ export const offers: Offers = [
     point: {
       lat: 52.3909553943508,
       lng: 4.929309666406198,
-    },
-  },
-  {
-    id: 4,
-    premium: true,
-    bookmark: false,
-    title: 'Nice, cozy, warm big bed apartment',
-    city: 'Amsterdam',
-    rating: 5,
-    photo: [
-      'img/apartment-03.jpg',
-      'img/room.jpg',
-      'img/apartment-01.jpg',
-      'img/apartment-02.jpg',
-      'img/studio-01.jpg',
-      'img/apartment-01.jpg',
-    ],
-    features: {
-      type: 'Apartment',
-      bedrooms: 3,
-      maxAdults: 4,
-    },
-    price: 180,
-    inside: [
-      'Wi-Fi',
-      'Washing machine',
-      'Towels',
-      'Heating',
-      'Coffee machine',
-      'Baby seat',
-      'Kitchen',
-      'Dishwasher',
-      'Cabel TV',
-      'Fridge',
-    ],
-    whoMeet: {
-      photo: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      pro: true,
-      description: [
-        'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
-        'An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
-      ],
-    },
-    point: {
-      lat: 52.3809553943508,
-      lng: 4.939309666406198,
-    },
-  },
-  {
-    id: 5,
-    premium: true,
-    bookmark: true,
-    title: 'White castle',
-    city: 'Cologne',
-    rating: 5,
-    photo: [
-      'img/apartment-small-04.jpg',
-      'img/apartment-03.jpg',
-      'img/room.jpg',
-      'img/apartment-01.jpg',
-      'img/apartment-02.jpg',
-      'img/studio-01.jpg',
-      'img/apartment-01.jpg',
-    ],
-    features: {
-      type: 'Apartment',
-      bedrooms: 3,
-      maxAdults: 4,
-    },
-    price: 180,
-    inside: [
-      'Wi-Fi',
-      'Washing machine',
-      'Towels',
-      'Heating',
-      'Coffee machine',
-      'Baby seat',
-      'Kitchen',
-      'Dishwasher',
-      'Cabel TV',
-      'Fridge',
-    ],
-    whoMeet: {
-      photo: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      pro: true,
-      description: [
-        'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
-        'An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
-      ],
-    },
-    point: {
-      lat: 52.1909553943508,
-      lng: 4.82309666406198,
     },
   },
 ];

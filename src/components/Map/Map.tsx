@@ -21,10 +21,11 @@ const currentCustomIcon = new Icon({
 type MapProps = {
   city: City;
   offers: Offers;
+  variant: string;
   selectedOffer: Offer | undefined;
 };
 
-function Map({ city, offers, selectedOffer }: MapProps): JSX.Element {
+function Map({ city, offers, variant, selectedOffer }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -52,7 +53,7 @@ function Map({ city, offers, selectedOffer }: MapProps): JSX.Element {
     }
   }, [map, offers, selectedOffer]);
 
-  return <section className="cities__map map" ref={mapRef}></section>;
+  return <section className={`${variant} map`} ref={mapRef}></section>;
 }
 
 export default Map;
