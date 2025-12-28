@@ -2,13 +2,28 @@ import OffersList from '../../components/OffersList/OffersList';
 import { Offers } from '../../types/offers';
 import { useState } from 'react';
 import Map from '../../components/Map/Map';
-import { city } from '../../mocks/city';
+import CitiesList from '../../components/CitiesList/CitiesList';
+import { CityNames } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { cities } from '../../mocks/cities';
+import { setCity, setOffers } from '../../store/action';
 
 type MainPageProps = {
   offers: Offers;
 };
 
 function MainPage({ offers }: MainPageProps): JSX.Element {
+  const activeCity = useAppSelector((state) => state.city);
+  const cityOffers = useAppSelector((state) => state.offers);
+  const dispatch = useAppDispatch();
+
+  const handleChangeCity = (cityName: CityNames) => {
+    const nextCity = cities.find((city) => city.name === cityName)!;
+    dispatch(setCity({ city: nextCity }));
+    const nextOffers = offers.filter((offer) => offer.city === cityName);
+    dispatch(setOffers({ offers: nextOffers }));
+  };
+
   const [activeOfferId, setActiveOfferId] = useState(0);
   const activeOffer = offers.find((offer) => offer.id === activeOfferId);
 
@@ -56,45 +71,16 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
+          <CitiesList
+            activeCity={activeCity.name}
+            setActive={handleChangeCity}
+          />
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <OffersList
-              offers={offers}
+              offers={cityOffers}
+              activeCity={activeCity.name}
               setActive={(offerId: number) => {
                 setActiveOfferId(offerId);
               }}
@@ -103,8 +89,8 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
               <Map
                 variant="cities__map"
                 selectedOffer={activeOffer}
-                offers={offers}
-                city={city}
+                offers={cityOffers}
+                city={activeCity}
               />
             </div>
           </div>
