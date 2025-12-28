@@ -1,3 +1,5 @@
+import { CityNames } from '../const';
+
 export type Features = {
   type: string;
   bedrooms: number;
@@ -21,7 +23,7 @@ export type Offer = {
   premium: boolean;
   bookmark: boolean;
   title: string;
-  city: string;
+  city: CityNames;
   rating: number;
   photo: string[];
   features: Features;
@@ -34,7 +36,7 @@ export type Offer = {
 export type Offers = Offer[];
 
 export type OffersByCityItem = {
-  city: string;
+  city: CityNames;
   offers: Offer[];
 };
 

@@ -1,17 +1,23 @@
 import OfferCard from '../OfferCard/OfferCard';
 import { Offers } from '../../types/offers';
+import { CityNames } from '../../const';
 
 type OffersListProps = {
   offers: Offers;
   setActive: (offerId: number) => void;
+  activeCity: CityNames;
 };
 
-function OffersList({ offers, setActive }: OffersListProps): JSX.Element {
+function OffersList({
+  offers,
+  setActive,
+  activeCity,
+}: OffersListProps): JSX.Element {
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">
-        {offers.length} places to stay in Amsterdam
+        {offers.length} places to stay in {activeCity}
       </b>
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>

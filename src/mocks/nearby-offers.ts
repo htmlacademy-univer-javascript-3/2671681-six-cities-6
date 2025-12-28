@@ -1,4 +1,5 @@
 import { Offers } from '../types/offers';
+import { CityNames } from '../const';
 
 export const nearbyOffers: Offers = [
   {
@@ -6,7 +7,7 @@ export const nearbyOffers: Offers = [
     premium: true,
     bookmark: false,
     title: 'Beautiful & luxurious studio at great location',
-    city: 'Amsterdam',
+    city: CityNames.Amsterdam,
     rating: 4.8,
     photo: [
       'img/room.jpg',
@@ -53,7 +54,7 @@ export const nearbyOffers: Offers = [
     premium: false,
     bookmark: true,
     title: 'Wood and stone place',
-    city: 'Amsterdam',
+    city: CityNames.Amsterdam,
     rating: 4,
     photo: [
       'img/room.jpg',
@@ -100,7 +101,7 @@ export const nearbyOffers: Offers = [
     premium: false,
     bookmark: false,
     title: 'Canal View Prinsengracht',
-    city: 'Amsterdam',
+    city: CityNames.Amsterdam,
     rating: 4,
     photo: [
       'img/apartment-02.jpg',
