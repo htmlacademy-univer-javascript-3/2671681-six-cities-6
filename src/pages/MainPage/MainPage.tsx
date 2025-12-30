@@ -1,30 +1,30 @@
 import OffersList from '../../components/OffersList/OffersList';
-import { Offers } from '../../types/offers';
+import { OfferBase } from '../../types/offers';
 import { useState } from 'react';
 import Map from '../../components/Map/Map';
 import CitiesList from '../../components/CitiesList/CitiesList';
-import { CityNames } from '../../const';
+import { CITIES, CityNames } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { cities } from '../../mocks/cities';
-import { setCity, setOffers } from '../../store/action';
+import { setCity } from '../../store/action';
 
-type MainPageProps = {
-  offers: Offers;
-};
-
-function MainPage({ offers }: MainPageProps): JSX.Element {
+function MainPage(): JSX.Element {
   const activeCity = useAppSelector((state) => state.city);
-  const cityOffers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector((state) => state.offers);
+
+  const cityOffers = offers.filter(
+    (offer) => offer.city.name === activeCity.name
+  );
+
   const dispatch = useAppDispatch();
 
   const handleChangeCity = (cityName: CityNames) => {
-    const nextCity = cities.find((city) => city.name === cityName)!;
-    dispatch(setCity({ city: nextCity }));
-    const nextOffers = offers.filter((offer) => offer.city === cityName);
-    dispatch(setOffers({ offers: nextOffers }));
+    const nextCity = CITIES.find((city) => city.name === cityName)!;
+    dispatch(setCity(nextCity));
   };
 
-  const [activeOfferId, setActiveOfferId] = useState(0);
+  const [activeOfferId, setActiveOfferId] = useState<OfferBase['id'] | null>(
+    null
+  );
   const activeOffer = offers.find((offer) => offer.id === activeOfferId);
 
   return (
@@ -81,7 +81,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
             <OffersList
               offers={cityOffers}
               activeCity={activeCity.name}
-              setActive={(offerId: number) => {
+              setActive={(offerId: OfferBase['id']) => {
                 setActiveOfferId(offerId);
               }}
             />

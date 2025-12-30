@@ -6,23 +6,28 @@ import OfferPage from '../pages/OfferPage/OfferPage';
 import NotFound from '../pages/NotFound/NotFound';
 import PrivateRoute from '../components/PrivateRoute/PrivateRoute';
 import { AppRoute, AuthorizationStatus } from '../const';
-import { Offers } from '../types/offers';
+import { useAppSelector } from '../hooks';
+import Spinner from '../components/Spinner/Spinner';
 
-type AppProps = {
-  offers: Offers;
-};
+function App(): JSX.Element {
+  const isOffersDataLoading = useAppSelector(
+    (state) => state.isOffersDataLoading
+  );
 
-function App({ offers }: AppProps): JSX.Element {
+  if (isOffersDataLoading) {
+    return <Spinner />;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainPage offers={offers} />} />
+        <Route path={AppRoute.Main} element={<MainPage />} />
         <Route path={AppRoute.Login} element={<LoginPage />} />
         <Route
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <FavoritesPage offers={offers} />
+              <FavoritesPage />
             </PrivateRoute>
           }
         />

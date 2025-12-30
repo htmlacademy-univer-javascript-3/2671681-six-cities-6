@@ -1,20 +1,30 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { offers } from '../mocks/offers';
-import { setCity, setOffers } from './action';
-import { cities } from '../mocks/cities';
-import { CityNames } from '../const';
+import { setCity, setOffers, setOffersDataLoadingStatus } from './action';
+import { CITIES, CityNames } from '../const';
+import { City } from '../types/city';
+import { Offers } from '../types/offers';
 
-const initialState = {
-  city: cities.find((city) => city.name === CityNames.Paris)!,
-  offers: offers.filter((offer) => offer.city === CityNames.Paris),
+type InitialState = {
+  city: City;
+  offers: Offers;
+  isOffersDataLoading: boolean;
+};
+
+const initialState: InitialState = {
+  city: CITIES.find((city) => city.name === CityNames.Paris)!,
+  offers: [],
+  isOffersDataLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder.addCase(setCity, (state, action) => {
-    state.city = action.payload.city;
+    state.city = action.payload;
   });
   builder.addCase(setOffers, (state, action) => {
-    state.offers = action.payload.offers;
+    state.offers = action.payload;
+  });
+  builder.addCase(setOffersDataLoadingStatus, (state, action) => {
+    state.isOffersDataLoading = action.payload;
   });
 });
 

@@ -1,10 +1,14 @@
 import { CityNames } from '../const';
 
+export type Location = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+};
+
 export type City = {
   name: CityNames;
-  lat: number;
-  lng: number;
-  zoom: number;
+  location: Location;
 };
 
 export type Cities = City[];

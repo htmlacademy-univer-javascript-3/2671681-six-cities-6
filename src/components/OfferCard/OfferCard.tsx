@@ -1,12 +1,12 @@
-import { Offer } from '../../types/offers';
+import { OfferBase } from '../../types/offers';
 import OfferCardRating from '../OfferCardRating/OfferCardRating';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 type OfferCardProps = {
-  offer: Offer;
+  offer: OfferBase;
   variant: string;
-  setActive?: (offerId: number) => void;
+  setActive?: (offerId: OfferBase['id']) => void;
 };
 
 function OfferCard({ offer, variant, setActive }: OfferCardProps): JSX.Element {
@@ -18,10 +18,10 @@ function OfferCard({ offer, variant, setActive }: OfferCardProps): JSX.Element {
         setActive?.(offer.id);
       }}
       onMouseLeave={() => {
-        setActive?.(0);
+        setActive?.('');
       }}
     >
-      {offer.premium && (
+      {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
@@ -30,7 +30,7 @@ function OfferCard({ offer, variant, setActive }: OfferCardProps): JSX.Element {
         <Link to={AppRoute.Offer(offer.id)}>
           <img
             className="place-card__image"
-            src={offer.photo[0]}
+            src={offer.previewImage}
             width="260"
             height="200"
             alt="Place image"
@@ -45,7 +45,7 @@ function OfferCard({ offer, variant, setActive }: OfferCardProps): JSX.Element {
           </div>
           <button
             className={
-              offer.bookmark
+              offer.isFavorite
                 ? 'place-card__bookmark-button place-card__bookmark-button--active button'
                 : 'place-card__bookmark-button button'
             }
@@ -61,7 +61,7 @@ function OfferCard({ offer, variant, setActive }: OfferCardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={AppRoute.Offer(offer.id)}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{offer.features.type}</p>
+        <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
   );
