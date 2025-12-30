@@ -1,12 +1,12 @@
 import OfferCard from '../OfferCard/OfferCard';
-import { Offers } from '../../types/offers';
+import { OfferBase, Offers } from '../../types/offers';
 import { CityNames } from '../../const';
 import { SortOptions, SortType } from '../SortOptions/SortOptions';
 import { useState } from 'react';
 
 type OffersListProps = {
   offers: Offers;
-  setActive: (offerId: number) => void;
+  setActive: (offerId: OfferBase['id']) => void;
   activeCity: CityNames;
 };
 

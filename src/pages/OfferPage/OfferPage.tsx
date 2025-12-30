@@ -1,15 +1,14 @@
 import ReviewsList from '../../components/ReviewsList/ReviewsList';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { reviews } from '../../mocks/reviews';
 import NearbyOffersList from '../../components/NearbyOffersList/NearbyOffersList';
-import { nearbyOffers } from '../../mocks/nearby-offers';
 import Map from '../../components/Map/Map';
-import { city } from '../../mocks/city';
-import { offers } from '../../mocks/offers';
+import { useAppSelector } from '../../hooks';
 
 function OfferPage(): JSX.Element {
-  const offer = offers[4];
+  const offers = useAppSelector((state) => state.offers);
+
+  const offer = offers[0];
   return (
     <div className="page">
       <header className="header">
@@ -183,7 +182,7 @@ function OfferPage(): JSX.Element {
             </div>
           </div>
           <Map
-            city={city}
+            city={offer.city}
             offers={[offer, ...nearbyOffers]}
             selectedOffer={offer}
             variant="offer__map"

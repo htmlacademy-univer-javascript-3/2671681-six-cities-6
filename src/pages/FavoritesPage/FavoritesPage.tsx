@@ -1,27 +1,27 @@
-import { Offers, OffersByCityItems } from '../../types/offers';
+import { OffersByCityItems } from '../../types/offers';
 import FavoritesCitySection from '../../components/FavoritesCitySection/FavoritesCitySection';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesPageProps = {
-  offers: Offers;
-}
-
-function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
+function FavoritesPage(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
 
   // Группировка по городу
-  const offersByCityItems: OffersByCityItems = offers.reduce<OffersByCityItems>((acc, offer) => {
-    const group = acc.find((item) => item.city === offer.city);
+  const offersByCityItems: OffersByCityItems = offers.reduce<OffersByCityItems>(
+    (acc, offer) => {
+      const group = acc.find((item) => item.city === offer.city.name);
 
-    if (group) {
-      group.offers.push(offer);
-    } else {
-      acc.push({ city: offer.city, offers: [offer] });
-    }
+      if (group) {
+        group.offers.push(offer);
+      } else {
+        acc.push({ city: offer.city.name, offers: [offer] });
+      }
 
-    return acc;
-  }, []);
-
+      return acc;
+    },
+    []
+  );
 
   return (
     <div className="page">
@@ -69,7 +69,10 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               {offersByCityItems.map((offersByCityItem) => (
-                <FavoritesCitySection key={offersByCityItem.city} offersByCityItem={offersByCityItem} />
+                <FavoritesCitySection
+                  key={offersByCityItem.city}
+                  offersByCityItem={offersByCityItem}
+                />
               ))}
             </ul>
           </section>

@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import { City } from '../../types/city';
-import { Offer, Offers } from '../../types/offers';
+import { OfferBase, Offers } from '../../types/offers';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -22,7 +22,7 @@ type MapProps = {
   city: City;
   offers: Offers;
   variant: string;
-  selectedOffer: Offer | undefined;
+  selectedOffer: OfferBase | undefined;
 };
 
 function Map({ city, offers, variant, selectedOffer }: MapProps): JSX.Element {
@@ -34,8 +34,8 @@ function Map({ city, offers, variant, selectedOffer }: MapProps): JSX.Element {
       const markerLayer = layerGroup().addTo(map);
       offers.forEach((offer) => {
         const marker = new Marker({
-          lat: offer.point.lat,
-          lng: offer.point.lng,
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
         });
 
         marker

@@ -1,43 +1,34 @@
 import { CityNames } from '../const';
+import { City, Location } from './city';
+import { User } from './user';
 
-export type Features = {
+export type OfferBase = {
+  id: string;
+  title: string;
   type: string;
+  price: number;
+  city: City;
+  location: Location;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage: string;
+};
+
+export type OfferFull = Omit<OfferBase, 'previewImage'> & {
+  description: string;
   bedrooms: number;
+  goods: string[];
+  host: User;
+  images: string[];
   maxAdults: number;
 };
 
-export type WhoMeet = {
-  photo: string;
-  name: string;
-  pro: boolean;
-  description: string[];
-};
-
-export type Point = {
-  lat: number;
-  lng: number;
-};
-
-export type Offer = {
-  id: number;
-  premium: boolean;
-  bookmark: boolean;
-  title: string;
-  city: CityNames;
-  rating: number;
-  photo: string[];
-  features: Features;
-  price: number;
-  inside: string[];
-  whoMeet: WhoMeet;
-  point: Point;
-};
-
-export type Offers = Offer[];
+export type Offers = OfferBase[];
 
 export type OffersByCityItem = {
   city: CityNames;
-  offers: Offer[];
+  offers: OfferBase[];
 };
 
 export type OffersByCityItems = OffersByCityItem[];
