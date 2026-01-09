@@ -12,23 +12,26 @@ import {
   fetchOfferAction,
 } from '../../store/api-actions';
 import Spinner from '../../components/Spinner/Spinner';
+import {
+  getOffer,
+  getNearbyOffers,
+  getIsOfferDataLoading,
+  getIsNearbyOffersDataLoading,
+} from '../../store/offer-data/selectors';
 
 function OfferPage(): JSX.Element | null {
   const { id } = useParams<{ id: OfferId }>();
   const dispatch = useAppDispatch();
 
-  const offer = useAppSelector((state) => state.offer);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(
+  const offer = useAppSelector(getOffer);
+
+  const nearbyOffers = useAppSelector(getNearbyOffers).slice(
     0,
     MAX_NEARBY_OFFERS_COUNT
   );
 
-  const isOfferDataLoading = useAppSelector(
-    (state) => state.isOfferDataLoading
-  );
-  const isNearbyOffersDataLoading = useAppSelector(
-    (state) => state.isNearbyOffersDataLoading
-  );
+  const isOfferDataLoading = useAppSelector(getIsOfferDataLoading);
+  const isNearbyOffersDataLoading = useAppSelector(getIsNearbyOffersDataLoading);
 
   useEffect(() => {
     if (id && offer?.id !== id) {

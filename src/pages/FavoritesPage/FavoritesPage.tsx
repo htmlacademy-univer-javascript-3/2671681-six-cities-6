@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
 import Header from '../../components/Header/Header';
+import { getOffers } from '../../store/main-data/selectors';
 
 function FavoritesPage(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
 
   // Группировка по городу
   const offersByCityItems: OffersByCityItems = offers.reduce<OffersByCityItems>(

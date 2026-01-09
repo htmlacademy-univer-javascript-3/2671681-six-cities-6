@@ -5,12 +5,13 @@ import Map from '../../components/Map/Map';
 import CitiesList from '../../components/CitiesList/CitiesList';
 import { CITIES, CityNames } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setCity } from '../../store/action';
+import { setCity } from '../../store/main-data/main-data';
+import { getCity, getOffers } from '../../store/main-data/selectors';
 import Header from '../../components/Header/Header';
 
 function MainPage(): JSX.Element {
-  const activeCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
+  const activeCity = useAppSelector(getCity);
+  const offers = useAppSelector(getOffers);
 
   const cityOffers = offers.filter(
     (offer) => offer.city.name === activeCity.name

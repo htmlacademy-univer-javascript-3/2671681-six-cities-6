@@ -1,4 +1,4 @@
-import { Cities } from './types/city';
+import { Cities, City } from './types/city';
 import { OfferBase } from './types/offers';
 
 export const URL_MARKER_DEFAULT = '/img/pin.svg';
@@ -92,3 +92,13 @@ export const CITIES: Cities = [
     },
   },
 ];
+
+export const DefaultCity: City = CITIES.find(
+  (city) => city.name === CityNames.Paris
+)!;
+
+export enum NameSpace {
+  Main = 'MAIN',
+  User = 'USER',
+  Offer = 'OFFER',
+}

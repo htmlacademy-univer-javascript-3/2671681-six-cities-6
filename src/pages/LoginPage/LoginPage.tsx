@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthDate } from '../../types/auth-data';
 import { loginAction } from '../../store/api-actions';
 import { FormEvent, useRef } from 'react';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 const isValidPassword = (password: string) => {
   const hasLetter = /[a-zA-Z]/.test(password);
@@ -18,9 +19,7 @@ function LoginPage(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return <Navigate to={AppRoute.Main} replace />;

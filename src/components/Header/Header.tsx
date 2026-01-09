@@ -2,12 +2,11 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
+import { getAuthorizationStatus, getAuthInfo } from '../../store/user-process/selectors';
 
 function Header(): JSX.Element {
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
-  const authInfo = useAppSelector((state) => state.authInfo);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const authInfo = useAppSelector(getAuthInfo);
   const dispatch = useAppDispatch();
 
   return (
