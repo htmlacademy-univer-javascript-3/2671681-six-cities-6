@@ -6,12 +6,25 @@ export const URL_MARKER_CURRENT = '/img/pin-active.svg';
 
 export const TIMEOUT_SHOW_ERROR = 2000;
 
+export const MAX_NEARBY_OFFERS_COUNT = 3;
+
 export const AppRoute = {
   Main: '/',
   Login: '/login',
   Favorites: '/favorites',
   OfferTemplate: '/offer/:id',
   Offer: (id: OfferBase['id']) => `/offer/${id}`,
+  NotFound: '/not-found',
+};
+
+export const APIRoute = {
+  Offers: '/offers',
+  Login: '/login',
+  Logout: '/logout',
+  Offer: (offerId: string) => `/offers/${offerId}`,
+  OffersNearby: (offerId: string) => `/offers/${offerId}/nearby`,
+  Reviews: (offerId: string) => `/comments/${offerId}`,
+  SendReview: (offerId: string) => `/comments/${offerId}`,
 };
 
 export enum AuthorizationStatus {
@@ -27,15 +40,6 @@ export enum CityNames {
   Amsterdam = 'Amsterdam',
   Hamburg = 'Hamburg',
   Dusseldorf = 'Dusseldorf',
-}
-
-//to-do: тут можно const и функции
-export enum APIRoute {
-  Offers = 'offers',
-  Favorite = 'favorite',
-  Comments = 'comments',
-  Login = 'login',
-  Logout = 'logout',
 }
 
 export const CITIES: Cities = [
