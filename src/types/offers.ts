@@ -2,8 +2,10 @@ import { CityNames } from '../const';
 import { City, Location } from './city';
 import { User } from './user';
 
+export type OfferId = string;
+
 export type OfferBase = {
-  id: string;
+  id: OfferId;
   title: string;
   type: string;
   price: number;
@@ -15,7 +17,7 @@ export type OfferBase = {
   previewImage: string;
 };
 
-export type OfferFull = Omit<OfferBase, 'previewImage'> & {
+export type OfferFull = OfferBase & {
   description: string;
   bedrooms: number;
   goods: string[];

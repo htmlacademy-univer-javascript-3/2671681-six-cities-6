@@ -1,9 +1,16 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { Link, Navigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthDate } from '../../types/auth-data';
 import { loginAction } from '../../store/api-actions';
 import { FormEvent, useRef } from 'react';
+
+const isValidPassword = (password: string) => {
+  const hasLetter = /[a-zA-Z]/.test(password);
+  const hasDigit = /\d/.test(password);
+
+  return hasLetter && hasDigit;
+};
 
 function LoginPage(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -11,8 +18,18 @@ function LoginPage(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return <Navigate to={AppRoute.Main} replace />;
+  }
+
   const onSubmit = (authData: AuthDate) => {
-    dispatch(loginAction(authData));
+    if (isValidPassword(authData.password)) {
+      dispatch(loginAction(authData));
+    }
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
