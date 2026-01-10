@@ -40,9 +40,6 @@ function ReviewForm(): JSX.Element {
               rating: 0,
               comment: '',
             });
-          })
-          .catch(() => {
-            // Ошибка обрабатывается через API interceptor
           });
       }
     },

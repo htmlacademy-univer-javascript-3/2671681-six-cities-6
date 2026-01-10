@@ -1,6 +1,6 @@
 import ReviewsList from '../../components/ReviewsList/ReviewsList';
 import { Navigate, useParams } from 'react-router-dom';
-import { AppRoute, MAX_NEARBY_OFFERS_COUNT } from '../../const';
+import { AppRoute, MAX_IMAGES, MAX_NEARBY_OFFERS_COUNT, MAX_RATING } from '../../const';
 import NearbyOffersList from '../../components/NearbyOffersList/NearbyOffersList';
 import MemoizedMap from '../../components/Map/Map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -57,12 +57,18 @@ function OfferPage(): JSX.Element | null {
     return <Navigate to={AppRoute.NotFound} replace />;
   }
 
-  const widthRating = `${(Math.round(offer.rating) / 5) * 100}%`;
+  const widthRating = `${(Math.round(offer.rating) / MAX_RATING) * 100}%`;
 
   const capitalizeWords = (str: string) => str
     .split(' ')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
+
+  const formatBedrooms = (count: number): string =>
+    `${count} Bedroom${count === 1 ? '' : 's'}`;
+
+  const formatAdults = (count: number): string =>
+    `Max ${count} adult${count === 1 ? '' : 's'}`;
 
 
   return (
@@ -72,7 +78,7 @@ function OfferPage(): JSX.Element | null {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {offer.images.map((image) => (
+              {offer.images.slice(0, MAX_IMAGES).map((image) => (
                 <div className="offer__image-wrapper" key={image}>
                   <img
                     className="offer__image"
@@ -85,9 +91,10 @@ function OfferPage(): JSX.Element | null {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
+              {offer.isPremium &&
               <div className="offer__mark">
                 <span>Premium</span>
-              </div>
+              </div>}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{offer.title}</h1>
                 <BookmarkButton
@@ -112,10 +119,10 @@ function OfferPage(): JSX.Element | null {
                   {capitalizeWords(offer.type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {offer.bedrooms} Bedrooms
+                  {formatBedrooms(offer.bedrooms)}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {offer.maxAdults} adults
+                  {formatAdults(offer.maxAdults)}
                 </li>
               </ul>
               <div className="offer__price">

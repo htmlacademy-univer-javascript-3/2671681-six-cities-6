@@ -5,6 +5,7 @@ import { AuthDate } from '../../types/auth-data';
 import { loginAction } from '../../store/api-actions';
 import { FormEvent, useRef } from 'react';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getCity } from '../../store/main-data/selectors';
 
 const isValidPassword = (password: string) => {
   const hasLetter = /[a-zA-Z]/.test(password);
@@ -14,6 +15,7 @@ const isValidPassword = (password: string) => {
 };
 
 function LoginPage(): JSX.Element {
+  const city = useAppSelector(getCity);
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -89,7 +91,6 @@ function LoginPage(): JSX.Element {
                 />
               </div>
               <button
-                // onClick={() => navigate(AppRoute.Main)}
                 className="login__submit form__submit button"
                 type="submit"
               >
@@ -100,7 +101,7 @@ function LoginPage(): JSX.Element {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link className="locations__item-link" to={AppRoute.Main}>
-                <span>Amsterdam</span>
+                <span>{city.name}</span>
               </Link>
             </div>
           </section>

@@ -7,6 +7,9 @@ export const URL_MARKER_CURRENT = '/img/pin-active.svg';
 export const TIMEOUT_SHOW_ERROR = 2000;
 
 export const MAX_NEARBY_OFFERS_COUNT = 3;
+export const MAX_REVIEWS_COUNT_PER_PAGE = 10;
+export const MAX_RATING = 5;
+export const MAX_IMAGES = 6;
 
 export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGTH = 300;
