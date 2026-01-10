@@ -1,11 +1,17 @@
 import { Link, Navigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import {
+  AppRoute,
+  AuthorizationStatus,
+  CITIES,
+  DefaultCity,
+} from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthDate } from '../../types/auth-data';
 import { loginAction } from '../../store/api-actions';
 import { FormEvent, useRef } from 'react';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { getCity } from '../../store/main-data/selectors';
+import { pickRandom } from '../../utils/random-utils';
+import { setCity } from '../../store/main-data/main-data';
 
 const isValidPassword = (password: string) => {
   const hasLetter = /[a-zA-Z]/.test(password);
@@ -15,9 +21,13 @@ const isValidPassword = (password: string) => {
 };
 
 function LoginPage(): JSX.Element {
-  const city = useAppSelector(getCity);
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const randomCity = pickRandom(CITIES) ?? DefaultCity;
+
+  const handleMainPageRedirect = () => {
+    dispatch(setCity(randomCity));
+  };
 
   const dispatch = useAppDispatch();
 
@@ -99,9 +109,13 @@ function LoginPage(): JSX.Element {
             </form>
           </section>
           <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Main}>
-                <span>{city.name}</span>
+            <div className="locations__item" onClick={handleMainPageRedirect}>
+              <Link
+                className="locations__item-link"
+                onClick={handleMainPageRedirect}
+                to={AppRoute.Main}
+              >
+                <span>{randomCity.name}</span>
               </Link>
             </div>
           </section>
