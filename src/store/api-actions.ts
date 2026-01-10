@@ -134,3 +134,35 @@ export const sendOfferReviewAction = createAsyncThunk<
   );
   return data;
 });
+
+export const fetchFavoriteOffersAction = createAsyncThunk<
+  Offers,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/fetchFavoriteOffers', async (_arg, { extra: api }) => {
+  const { data } = await api.get<Offers>(APIRoute.Favorite);
+  return data;
+});
+
+export const updateFavoriteAction = createAsyncThunk<
+  OfferFull,
+  {
+    offerId: string;
+    setIsFavorite: boolean;
+  }, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>(
+    'data/updateFavorite',
+    async ({ offerId, setIsFavorite: setIsFavorite }, { extra: api }) => {
+      const { data } = await api.post<OfferFull>(APIRoute.ChangeFavoriteOfferStatus(offerId, setIsFavorite));
+      return data;
+    },
+  );
+
+//fetchFavoriteOffersAction

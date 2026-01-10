@@ -2,7 +2,8 @@ import { memo, useMemo, useState, useCallback } from 'react';
 import MemoizedOfferCard from '../OfferCard/OfferCard';
 import { OfferBase, Offers } from '../../types/offers';
 import { CityNames } from '../../const';
-import { SortOptions, SortType } from '../SortOptions/SortOptions';
+import SortOptions from '../SortOptions/SortOptions';
+import { SortType } from '../SortOptions/sort-constants';
 
 type OffersListProps = {
   offers: Offers;

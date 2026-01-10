@@ -24,10 +24,12 @@ export const APIRoute = {
   Offers: '/offers',
   Login: '/login',
   Logout: '/logout',
+  Favorite: '/favorite',
   Offer: (offerId: string) => `/offers/${offerId}`,
   OffersNearby: (offerId: string) => `/offers/${offerId}/nearby`,
   Reviews: (offerId: string) => `/comments/${offerId}`,
   SendReview: (offerId: string) => `/comments/${offerId}`,
+  ChangeFavoriteOfferStatus: (offerId: string, setIsFavorite: boolean) => `/favorite/${offerId}/${setIsFavorite ? 1 : 0}`,
 };
 
 export enum AuthorizationStatus {
@@ -104,4 +106,5 @@ export enum NameSpace {
   Main = 'MAIN',
   User = 'USER',
   Offer = 'OFFER',
+  Favorite = 'FAVORITE',
 }

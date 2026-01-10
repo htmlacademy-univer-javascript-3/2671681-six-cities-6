@@ -27,6 +27,12 @@ export type UserProcess = {
   authInfo: AuthInfo | null;
 };
 
+export type FavoriteData = {
+  offers: Offers;
+  isOffersDataLoading: boolean;
+  isOfferStatusUpdating: boolean;
+}
+
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
