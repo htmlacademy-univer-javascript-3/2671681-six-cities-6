@@ -1,6 +1,6 @@
 import ReviewsList from '../../components/ReviewsList/ReviewsList';
 import { Navigate, useParams } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, MAX_NEARBY_OFFERS_COUNT } from '../../const';
 import NearbyOffersList from '../../components/NearbyOffersList/NearbyOffersList';
 import MemoizedMap from '../../components/Map/Map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -18,16 +18,20 @@ import {
   getIsOfferDataLoading,
   getIsNearbyOffersDataLoading,
 } from '../../store/offer-data/selectors';
+import { useFavoriteOfferUpdate } from '../../hooks/useFavoriteOfferUpdate';
+import BookmarkButton from '../../components/BookmarkButton/BookmarkButton';
 
 function OfferPage(): JSX.Element | null {
   const { id } = useParams<{ id: OfferId }>();
   const dispatch = useAppDispatch();
 
   const offer = useAppSelector(getOffer);
-  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const nearbyOffers = useAppSelector(getNearbyOffers).slice(0, MAX_NEARBY_OFFERS_COUNT);
 
   const isOfferDataLoading = useAppSelector(getIsOfferDataLoading);
   const isNearbyOffersDataLoading = useAppSelector(getIsNearbyOffersDataLoading);
+
+  const onFavoriteClick = useFavoriteOfferUpdate();
 
   const mapOffers = useMemo(
     () => (offer ? nearbyOffers.concat(offer) : nearbyOffers),
@@ -52,6 +56,14 @@ function OfferPage(): JSX.Element | null {
   if (!offer) {
     return <Navigate to={AppRoute.NotFound} replace />;
   }
+
+  const widthRating = `${(Math.round(offer.rating) / 5) * 100}%`;
+
+  const capitalizeWords = (str: string) => str
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
 
   return (
     <div className="page">
@@ -78,16 +90,17 @@ function OfferPage(): JSX.Element | null {
               </div>
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{offer.title}</h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <BookmarkButton
+                  variant='offer'
+                  isActive={offer.isFavorite}
+                  width={31}
+                  height={33}
+                  onClick={() => onFavoriteClick(offer.id, !offer.isFavorite)}
+                />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: '80%' }} />
+                  <span style={{ width: widthRating }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">
@@ -96,7 +109,7 @@ function OfferPage(): JSX.Element | null {
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  Apartment
+                  {capitalizeWords(offer.type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {offer.bedrooms} Bedrooms

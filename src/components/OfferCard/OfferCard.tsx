@@ -3,6 +3,8 @@ import { OfferBase } from '../../types/offers';
 import OfferCardRating from '../OfferCardRating/OfferCardRating';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import BookmarkButton from '../BookmarkButton/BookmarkButton';
+import { useFavoriteOfferUpdate } from '../../hooks/useFavoriteOfferUpdate';
 
 type OfferCardProps = {
   offer: OfferBase;
@@ -11,6 +13,8 @@ type OfferCardProps = {
 };
 
 function OfferCard({ offer, variant, setActive }: OfferCardProps): JSX.Element {
+  const onFavoriteClick = useFavoriteOfferUpdate();
+
   const handleMouseEnter = useCallback(() => {
     setActive?.(offer.id);
   }, [offer.id, setActive]);
@@ -47,19 +51,7 @@ function OfferCard({ offer, variant, setActive }: OfferCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            className={
-              offer.isFavorite
-                ? 'place-card__bookmark-button place-card__bookmark-button--active button'
-                : 'place-card__bookmark-button button'
-            }
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use href="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton variant='place-card' width={18} height={19} isActive={offer.isFavorite} onClick={() => onFavoriteClick(offer.id, !offer.isFavorite)} />
         </div>
         <OfferCardRating rating={offer.rating} />
         <h2 className="place-card__name">

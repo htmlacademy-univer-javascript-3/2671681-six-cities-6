@@ -1,18 +1,12 @@
 import { useState } from 'react';
-
-export enum SortType {
-  Popular = 'Popular',
-  PriceLowToHigh = 'Price: low to high',
-  PriceHighToLow = 'Price: high to low',
-  TopRated = 'Top rated first',
-}
+import { SortType } from './sort-constants';
 
 type SortOptionsProps = {
   activeSort: SortType;
   onSortChange: (sort: SortType) => void;
 };
 
-export function SortOptions({
+function SortOptions({
   activeSort,
   onSortChange,
 }: SortOptionsProps): JSX.Element {
@@ -57,3 +51,5 @@ export function SortOptions({
     </form>
   );
 }
+
+export default SortOptions;

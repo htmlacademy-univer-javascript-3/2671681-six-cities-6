@@ -4,11 +4,13 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { getAuthorizationStatus, getAuthInfo } from '../../store/user-process/selectors';
+import { getFavoriteOffers } from '../../store/favorite-data/selectors';
 
 function Header(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const authInfo = useAppSelector(getAuthInfo);
   const dispatch = useAppDispatch();
+  const favoritesCount = useAppSelector(getFavoriteOffers).length;
 
   const handleLogout = useCallback(
     (evt: React.MouseEvent<HTMLAnchorElement>) => {
@@ -48,7 +50,9 @@ function Header(): JSX.Element {
                     <span className="header__user-name user__name">
                       {authInfo?.email}
                     </span>
-                    <span className="header__favorite-count">3</span>
+                    <Link to={AppRoute.Favorites}>
+                      <span className="header__favorite-count">{favoritesCount}</span>
+                    </Link>
                   </a>
                 </li>
                 <li className="header__nav-item">

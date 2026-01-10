@@ -1,13 +1,13 @@
-import MemoizedOffersList from '../../components/OffersList/OffersList';
 import { OfferBase } from '../../types/offers';
 import { useState, useMemo, useCallback } from 'react';
-import MemoizedMap from '../../components/Map/Map';
 import MemoizedCitiesList from '../../components/CitiesList/CitiesList';
 import { CITIES, CityNames } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setCity } from '../../store/main-data/main-data';
 import { getCity, getCityOffers } from '../../store/main-data/selectors';
 import MemoizedHeader from '../../components/Header/Header';
+import MainContainer from '../../components/MainContainer/MainContainer';
+import EmptyMainContainer from '../../components/EmptyMainContainer/EmptyMainContainer';
 
 function MainPage(): JSX.Element {
   const activeCity = useAppSelector(getCity);
@@ -52,21 +52,16 @@ function MainPage(): JSX.Element {
           />
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <MemoizedOffersList
-              offers={cityOffers}
-              activeCity={activeCity.name}
+          {cityOffers.length === 0 ? (
+            <EmptyMainContainer />
+          ) : (
+            <MainContainer
+              cityOffers={cityOffers}
+              city={activeCity}
+              activeOffer={activeOffer}
               setActive={handleSetActive}
             />
-            <div className="cities__right-section">
-              <MemoizedMap
-                variant="cities__map"
-                selectedOffer={activeOffer}
-                offers={cityOffers}
-                city={activeCity}
-              />
-            </div>
-          </div>
+          )}
         </div>
       </main>
     </div>

@@ -5,7 +5,9 @@ import {
   fetchNearbyOffersAction,
   fetchOfferAction,
   fetchOfferReviewsAction,
+  logoutAction,
   sendOfferReviewAction,
+  updateFavoriteAction,
 } from '../api-actions';
 import { OfferFull, Offers } from '../../types/offers';
 import { Review } from '../../types/reviews';
@@ -80,6 +82,25 @@ export const offerData = createSlice({
       )
       .addCase(sendOfferReviewAction.rejected, (state) => {
         state.isReviewDataPosting = false;
+      })
+      .addCase(updateFavoriteAction.fulfilled, (state, action) => {
+        const updatedOffer = action.payload;
+        const updatedOfferIndex = state.nearbyOffers.findIndex((offer) => offer.id === updatedOffer.id);
+
+        if (state.offer?.id === updatedOffer.id) {
+          state.offer = updatedOffer;
+        }
+
+        if (updatedOfferIndex !== -1) {
+          state.nearbyOffers[updatedOfferIndex] = action.payload;
+        }
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        if (state.offer) {
+          state.offer.isFavorite = false;
+        }
+
+        state.nearbyOffers = state.nearbyOffers.map((offer) => ({...offer, isFavorite: false}));
       });
   },
 });

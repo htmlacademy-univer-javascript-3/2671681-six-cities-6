@@ -2,12 +2,17 @@ import { OfferBase } from '../../types/offers';
 import OfferCardRating from '../OfferCardRating/OfferCardRating';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { useFavoriteOfferUpdate } from '../../hooks/useFavoriteOfferUpdate';
+import BookmarkButton from '../BookmarkButton/BookmarkButton';
 
 type FavoriteOfferCardProps = {
   offer: OfferBase;
 };
 
 function FavoriteOfferCard({ offer }: FavoriteOfferCardProps): JSX.Element {
+
+  const onFavoriteClick = useFavoriteOfferUpdate();
+
   return (
     <article key={offer.id} className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
@@ -27,15 +32,7 @@ function FavoriteOfferCard({ offer }: FavoriteOfferCardProps): JSX.Element {
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            className="place-card__bookmark-button place-card__bookmark-button--active button"
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
+          <BookmarkButton variant='place-card' width={18} height={19} isActive={offer.isFavorite} onClick={() => onFavoriteClick(offer.id, !offer.isFavorite)} />
         </div>
         <OfferCardRating rating={offer.rating} />
         <h2 className="place-card__name">
