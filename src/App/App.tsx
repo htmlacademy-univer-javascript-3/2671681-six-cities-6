@@ -10,11 +10,10 @@ import { useAppSelector } from '../hooks';
 import Spinner from '../components/Spinner/Spinner';
 import HistoryRouter from '../components/HistoryRouter/HistoryRouter';
 import browserHistory from '../browser-history';
+import { getIsOffersDataLoading } from '../store/main-data/selectors';
 
 function App(): JSX.Element {
-  const isOffersDataLoading = useAppSelector(
-    (state) => state.isOffersDataLoading
-  );
+  const isOffersDataLoading = useAppSelector(getIsOffersDataLoading);
 
   if (isOffersDataLoading) {
     return <Spinner />;

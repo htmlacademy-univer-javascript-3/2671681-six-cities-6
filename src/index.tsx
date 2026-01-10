@@ -4,7 +4,7 @@ import App from './App/App';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
-import ErrorMessage from './components/ErrorMessage/ErrorMessage';
+import MemoizedErrorMessage from './components/ErrorMessage/ErrorMessage';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
@@ -16,7 +16,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ErrorMessage />
+      <MemoizedErrorMessage />
       <App />
     </Provider>
   </React.StrictMode>

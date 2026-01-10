@@ -1,5 +1,5 @@
 import { Offers } from '../../types/offers';
-import OfferCard from '../OfferCard/OfferCard';
+import MemoizedOfferCard from '../OfferCard/OfferCard';
 
 type NearbyOffersListProps = {
   offers: Offers;
@@ -11,7 +11,7 @@ function NearbyOffersList({ offers }: NearbyOffersListProps): JSX.Element {
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
         {offers.map((offer) => (
-          <OfferCard key={offer.id} offer={offer} variant="near-places" />
+          <MemoizedOfferCard key={offer.id} offer={offer} variant="near-places" />
         ))}
       </div>
     </section>

@@ -1,7 +1,9 @@
+import { memo } from 'react';
 import { useAppSelector } from '../../hooks';
+import { getError } from '../../store/main-data/selectors';
 
 function ErrorMessage(): JSX.Element | null {
-  const error = useAppSelector((state) => state.error);
+  const error = useAppSelector(getError);
 
   const style = {
     position: 'fixed',
@@ -24,4 +26,5 @@ function ErrorMessage(): JSX.Element | null {
   return error ? <div style={style}>{error}</div> : null;
 }
 
-export default ErrorMessage;
+const MemoizedErrorMessage = memo(ErrorMessage);
+export default MemoizedErrorMessage;

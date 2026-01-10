@@ -1,4 +1,4 @@
-import { Cities } from './types/city';
+import { Cities, City } from './types/city';
 import { OfferBase } from './types/offers';
 
 export const URL_MARKER_DEFAULT = '/img/pin.svg';
@@ -7,6 +7,9 @@ export const URL_MARKER_CURRENT = '/img/pin-active.svg';
 export const TIMEOUT_SHOW_ERROR = 2000;
 
 export const MAX_NEARBY_OFFERS_COUNT = 3;
+
+export const MIN_COMMENT_LENGTH = 50;
+export const MAX_COMMENT_LENGTH = 300;
 
 export const AppRoute = {
   Main: '/',
@@ -92,3 +95,13 @@ export const CITIES: Cities = [
     },
   },
 ];
+
+export const DefaultCity: City = CITIES.find(
+  (city) => city.name === CityNames.Paris
+)!;
+
+export enum NameSpace {
+  Main = 'MAIN',
+  User = 'USER',
+  Offer = 'OFFER',
+}

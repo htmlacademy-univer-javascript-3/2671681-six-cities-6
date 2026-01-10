@@ -1,33 +1,37 @@
 import ReviewsList from '../../components/ReviewsList/ReviewsList';
 import { Navigate, useParams } from 'react-router-dom';
-import { AppRoute, MAX_NEARBY_OFFERS_COUNT } from '../../const';
+import { AppRoute } from '../../const';
 import NearbyOffersList from '../../components/NearbyOffersList/NearbyOffersList';
-import Map from '../../components/Map/Map';
+import MemoizedMap from '../../components/Map/Map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import Header from '../../components/Header/Header';
+import MemoizedHeader from '../../components/Header/Header';
 import { OfferId } from '../../types/offers';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import {
   fetchNearbyOffersAction,
   fetchOfferAction,
 } from '../../store/api-actions';
 import Spinner from '../../components/Spinner/Spinner';
+import {
+  getOffer,
+  getNearbyOffers,
+  getIsOfferDataLoading,
+  getIsNearbyOffersDataLoading,
+} from '../../store/offer-data/selectors';
 
 function OfferPage(): JSX.Element | null {
   const { id } = useParams<{ id: OfferId }>();
   const dispatch = useAppDispatch();
 
-  const offer = useAppSelector((state) => state.offer);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(
-    0,
-    MAX_NEARBY_OFFERS_COUNT
-  );
+  const offer = useAppSelector(getOffer);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
 
-  const isOfferDataLoading = useAppSelector(
-    (state) => state.isOfferDataLoading
-  );
-  const isNearbyOffersDataLoading = useAppSelector(
-    (state) => state.isNearbyOffersDataLoading
+  const isOfferDataLoading = useAppSelector(getIsOfferDataLoading);
+  const isNearbyOffersDataLoading = useAppSelector(getIsNearbyOffersDataLoading);
+
+  const mapOffers = useMemo(
+    () => (offer ? nearbyOffers.concat(offer) : nearbyOffers),
+    [nearbyOffers, offer]
   );
 
   useEffect(() => {
@@ -51,7 +55,7 @@ function OfferPage(): JSX.Element | null {
 
   return (
     <div className="page">
-      <Header />
+      <MemoizedHeader />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -139,9 +143,9 @@ function OfferPage(): JSX.Element | null {
               <ReviewsList />
             </div>
           </div>
-          <Map
+          <MemoizedMap
             city={offer.city}
-            offers={nearbyOffers.concat(offer)}
+            offers={mapOffers}
             selectedOffer={offer}
             variant="offer__map"
           />
