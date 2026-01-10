@@ -1,9 +1,11 @@
+import { MAX_RATING } from '../../const';
+
 type ReviewItemRatingProps = {
   rating: number;
 };
 
 function ReviewItemRating({ rating }: ReviewItemRatingProps): JSX.Element {
-  const widthRating = `${(Math.round(rating) / 5) * 100}%`;
+  const widthRating = `${(Math.round(rating) / MAX_RATING) * 100}%`;
 
   return (
     <div className="reviews__rating rating">

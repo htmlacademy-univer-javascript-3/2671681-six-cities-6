@@ -6,7 +6,7 @@ import { getFavoriteOfferUpdatingStatus } from '../../store/favorite-data/select
 import { useOffersByCity } from '../../hooks/useOffersByCity';
 import Spinner from '../../components/Spinner/Spinner';
 import FavoritesContainer from '../../components/FavoritesContainer/FavoritesContainer';
-import EmptyMainContainer from '../../components/EmptyMainContainer/EmptyMainContainer';
+import FavoritesEmpty from '../../components/FavoritesEmpty/FavoritesEmpty';
 
 function FavoritesPage(): JSX.Element {
   const isFavoriteOffersDataLoading = useAppSelector(getFavoriteOfferUpdatingStatus);
@@ -20,7 +20,7 @@ function FavoritesPage(): JSX.Element {
   return (
     <div className={`page ${hasAnyOffers ? '' : 'page--favorites-empty'}`}>
       <Header />
-      {hasAnyOffers ? <FavoritesContainer offersByCityItems={offersByCityItems} /> : <EmptyMainContainer />}
+      {hasAnyOffers ? <FavoritesContainer offersByCityItems={offersByCityItems} /> : <FavoritesEmpty />}
       <footer className="footer container">
         <Link className="footer__logo-link" to={AppRoute.Main}>
           <img

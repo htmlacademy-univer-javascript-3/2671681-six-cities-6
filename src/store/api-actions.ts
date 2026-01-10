@@ -164,5 +164,3 @@ export const updateFavoriteAction = createAsyncThunk<
       return data;
     },
   );
-
-//fetchFavoriteOffersAction

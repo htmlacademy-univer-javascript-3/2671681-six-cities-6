@@ -47,12 +47,12 @@ function Header(): JSX.Element {
                     href="#"
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                      {authInfo?.email}
-                    </span>
                     <Link to={AppRoute.Favorites}>
-                      <span className="header__favorite-count">{favoritesCount}</span>
+                      <span className="header__user-name user__name">
+                        {authInfo?.email}
+                      </span>
                     </Link>
+                    <span className="header__favorite-count">{favoritesCount}</span>
                   </a>
                 </li>
                 <li className="header__nav-item">
