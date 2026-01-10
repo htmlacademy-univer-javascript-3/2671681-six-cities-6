@@ -5,8 +5,10 @@ import {
   fetchNearbyOffersAction,
   fetchOfferAction,
   fetchOfferReviewsAction,
+  sendOfferReviewAction,
 } from '../api-actions';
 import { OfferFull, Offers } from '../../types/offers';
+import { Review } from '../../types/reviews';
 
 const initialState: OfferData = {
   offer: null,
@@ -64,17 +66,20 @@ export const offerData = createSlice({
       .addCase(fetchOfferReviewsAction.rejected, (state) => {
         state.reviews = [];
         state.isReviewsDataLoading = false;
-      });
+      })
 
-    // .addCase(sendOfferReviewAction.pending, (state) => {
-    //   state.isReviewDataSending = true;
-    // })
-    // .addCase(sendOfferReviewAction.fulfilled, (state, action) => {
-    //   state.reviews = [action.payload, ...state.reviews];
-    //   state.isReviewDataSending = false;
-    // })
-    // .addCase(sendOfferReviewAction.rejected, (state) => {
-    //   state.isReviewDataSending = false;
-    // });
+      .addCase(sendOfferReviewAction.pending, (state) => {
+        state.isReviewDataPosting = true;
+      })
+      .addCase(
+        sendOfferReviewAction.fulfilled,
+        (state, action: PayloadAction<Review>) => {
+          state.reviews = [action.payload, ...state.reviews];
+          state.isReviewDataPosting = false;
+        }
+      )
+      .addCase(sendOfferReviewAction.rejected, (state) => {
+        state.isReviewDataPosting = false;
+      });
   },
 });

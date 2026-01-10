@@ -1,3 +1,4 @@
+import { memo, useCallback } from 'react';
 import { OfferBase } from '../../types/offers';
 import OfferCardRating from '../OfferCardRating/OfferCardRating';
 import { Link } from 'react-router-dom';
@@ -10,16 +11,19 @@ type OfferCardProps = {
 };
 
 function OfferCard({ offer, variant, setActive }: OfferCardProps): JSX.Element {
+  const handleMouseEnter = useCallback(() => {
+    setActive?.(offer.id);
+  }, [offer.id, setActive]);
+
+  const handleMouseLeave = useCallback(() => {
+    setActive?.('');
+  }, [setActive]);
+
   return (
     <article
-      key={offer.id}
       className={`${variant}__card place-card`}
-      onMouseEnter={() => {
-        setActive?.(offer.id);
-      }}
-      onMouseLeave={() => {
-        setActive?.('');
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
@@ -67,4 +71,5 @@ function OfferCard({ offer, variant, setActive }: OfferCardProps): JSX.Element {
   );
 }
 
-export default OfferCard;
+const MemoizedOfferCard = memo(OfferCard);
+export default MemoizedOfferCard;

@@ -1,3 +1,4 @@
+import { memo, useCallback } from 'react';
 import { CityNames } from '../../const';
 
 type CitiesListProps = {
@@ -6,6 +7,13 @@ type CitiesListProps = {
 };
 
 function CitiesList({ activeCity, setActive }: CitiesListProps): JSX.Element {
+  const handleCityClick = useCallback(
+    (name: CityNames) => () => {
+      setActive(name);
+    },
+    [setActive]
+  );
+
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
@@ -15,45 +23,17 @@ function CitiesList({ activeCity, setActive }: CitiesListProps): JSX.Element {
               className={`locations__item-link tabs__item ${
                 activeCity === name && 'tabs__item--active'
               }`}
-              onClick={() => setActive(name)}
+              onClick={handleCityClick(name)}
             >
               <span>{name}</span>
             </a>
           </li>
         ))}
-        {/* <li className="locations__item">
-          <a className="locations__item-link tabs__item" href="#">
-            <span>Paris</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className="locations__item-link tabs__item" href="#">
-            <span>Cologne</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className="locations__item-link tabs__item" href="#">
-            <span>Brussels</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className="locations__item-link tabs__item tabs__item--active">
-            <span>Amsterdam</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className="locations__item-link tabs__item" href="#">
-            <span>Hamburg</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className="locations__item-link tabs__item" href="#">
-            <span>Dusseldorf</span>
-          </a>
-        </li> */}
       </ul>
     </section>
   );
 }
 
-export default CitiesList;
+
+const MemoizedCitiesList = memo(CitiesList);
+export default MemoizedCitiesList;

@@ -1,3 +1,4 @@
+import { memo, useMemo } from 'react';
 import { Review } from '../../types/reviews';
 import ReviewItemRating from '../ReviewItemRating/ReviewItemRating';
 
@@ -6,10 +7,14 @@ type ReviewItemProps = {
 };
 
 function ReviewItem({ review }: ReviewItemProps): JSX.Element {
-  const formattedDate = new Date(review.date).toLocaleString('en-US', {
-    month: 'long',
-    year: 'numeric',
-  });
+  const formattedDate = useMemo(
+    () =>
+      new Date(review.date).toLocaleString('en-US', {
+        month: 'long',
+        year: 'numeric',
+      }),
+    [review.date]
+  );
 
   return (
     <li className="reviews__item">
@@ -36,4 +41,5 @@ function ReviewItem({ review }: ReviewItemProps): JSX.Element {
   );
 }
 
-export default ReviewItem;
+const MemoizedReviewItem = memo(ReviewItem);
+export default MemoizedReviewItem;

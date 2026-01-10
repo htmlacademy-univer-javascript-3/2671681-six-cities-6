@@ -1,12 +1,12 @@
 import ReviewsList from '../../components/ReviewsList/ReviewsList';
 import { Navigate, useParams } from 'react-router-dom';
-import { AppRoute, MAX_NEARBY_OFFERS_COUNT } from '../../const';
+import { AppRoute } from '../../const';
 import NearbyOffersList from '../../components/NearbyOffersList/NearbyOffersList';
-import Map from '../../components/Map/Map';
+import MemoizedMap from '../../components/Map/Map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import Header from '../../components/Header/Header';
+import MemoizedHeader from '../../components/Header/Header';
 import { OfferId } from '../../types/offers';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import {
   fetchNearbyOffersAction,
   fetchOfferAction,
@@ -24,14 +24,15 @@ function OfferPage(): JSX.Element | null {
   const dispatch = useAppDispatch();
 
   const offer = useAppSelector(getOffer);
-
-  const nearbyOffers = useAppSelector(getNearbyOffers).slice(
-    0,
-    MAX_NEARBY_OFFERS_COUNT
-  );
+  const nearbyOffers = useAppSelector(getNearbyOffers);
 
   const isOfferDataLoading = useAppSelector(getIsOfferDataLoading);
   const isNearbyOffersDataLoading = useAppSelector(getIsNearbyOffersDataLoading);
+
+  const mapOffers = useMemo(
+    () => (offer ? nearbyOffers.concat(offer) : nearbyOffers),
+    [nearbyOffers, offer]
+  );
 
   useEffect(() => {
     if (id && offer?.id !== id) {
@@ -54,7 +55,7 @@ function OfferPage(): JSX.Element | null {
 
   return (
     <div className="page">
-      <Header />
+      <MemoizedHeader />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -142,9 +143,9 @@ function OfferPage(): JSX.Element | null {
               <ReviewsList />
             </div>
           </div>
-          <Map
+          <MemoizedMap
             city={offer.city}
-            offers={nearbyOffers.concat(offer)}
+            offers={mapOffers}
             selectedOffer={offer}
             variant="offer__map"
           />

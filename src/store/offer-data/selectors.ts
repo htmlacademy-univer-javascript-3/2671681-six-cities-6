@@ -1,9 +1,11 @@
 import { NameSpace } from '../../const';
 import { State } from '../../types/state';
-import { OfferFull, Offers } from '../../types/offers';
+import { Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
 
-export const getOffer = (state: State): OfferFull | null =>
+export const getOfferData = (state: State) => state[NameSpace.Offer];
+
+export const getOffer = (state: State) =>
   state[NameSpace.Offer].offer;
 
 export const getNearbyOffers = (state: State): Offers =>
@@ -23,4 +25,3 @@ export const getIsReviewsDataLoading = (state: State): boolean =>
 
 export const getIsReviewDataPosting = (state: State): boolean =>
   state[NameSpace.Offer].isReviewDataPosting;
-

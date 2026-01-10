@@ -1,57 +1,65 @@
-import OffersList from '../../components/OffersList/OffersList';
+import MemoizedOffersList from '../../components/OffersList/OffersList';
 import { OfferBase } from '../../types/offers';
-import { useState } from 'react';
-import Map from '../../components/Map/Map';
-import CitiesList from '../../components/CitiesList/CitiesList';
+import { useState, useMemo, useCallback } from 'react';
+import MemoizedMap from '../../components/Map/Map';
+import MemoizedCitiesList from '../../components/CitiesList/CitiesList';
 import { CITIES, CityNames } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setCity } from '../../store/main-data/main-data';
-import { getCity, getOffers } from '../../store/main-data/selectors';
-import Header from '../../components/Header/Header';
+import { getCity, getCityOffers } from '../../store/main-data/selectors';
+import MemoizedHeader from '../../components/Header/Header';
 
 function MainPage(): JSX.Element {
   const activeCity = useAppSelector(getCity);
-  const offers = useAppSelector(getOffers);
-
-  const cityOffers = offers.filter(
-    (offer) => offer.city.name === activeCity.name
-  );
+  const cityOffers = useAppSelector(getCityOffers);
 
   const dispatch = useAppDispatch();
 
-  const handleChangeCity = (cityName: CityNames) => {
-    const nextCity = CITIES.find((city) => city.name === cityName)!;
-    dispatch(setCity(nextCity));
-  };
+  const handleChangeCity = useCallback(
+    (cityName: CityNames) => {
+      const nextCity = CITIES.find((city) => city.name === cityName)!;
+      dispatch(setCity(nextCity));
+    },
+    [dispatch]
+  );
 
   const [activeOfferId, setActiveOfferId] = useState<OfferBase['id'] | null>(
     null
   );
-  const activeOffer = offers.find((offer) => offer.id === activeOfferId);
+
+  const activeOffer = useMemo(
+    () => cityOffers.find((offer) => offer.id === activeOfferId),
+    [cityOffers, activeOfferId]
+  );
+
+  const handleSetActive = useCallback(
+    (offerId: OfferBase['id']) => {
+      setActiveOfferId(offerId);
+    },
+    []
+  );
 
   return (
     <div className="page page--gray page--main">
-      <Header />
+      <MemoizedHeader />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <CitiesList
+          <MemoizedCitiesList
             activeCity={activeCity.name}
             setActive={handleChangeCity}
           />
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            <OffersList
+            <MemoizedOffersList
               offers={cityOffers}
               activeCity={activeCity.name}
-              setActive={(offerId: OfferBase['id']) => {
-                setActiveOfferId(offerId);
-              }}
+              setActive={handleSetActive}
             />
             <div className="cities__right-section">
-              <Map
+              <MemoizedMap
                 variant="cities__map"
                 selectedOffer={activeOffer}
                 offers={cityOffers}

@@ -8,6 +8,9 @@ export const TIMEOUT_SHOW_ERROR = 2000;
 
 export const MAX_NEARBY_OFFERS_COUNT = 3;
 
+export const MIN_COMMENT_LENGTH = 50;
+export const MAX_COMMENT_LENGTH = 300;
+
 export const AppRoute = {
   Main: '/',
   Login: '/login',

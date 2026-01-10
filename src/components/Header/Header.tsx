@@ -1,3 +1,4 @@
+import { memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -8,6 +9,14 @@ function Header(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const authInfo = useAppSelector(getAuthInfo);
   const dispatch = useAppDispatch();
+
+  const handleLogout = useCallback(
+    (evt: React.MouseEvent<HTMLAnchorElement>) => {
+      evt.preventDefault();
+      dispatch(logoutAction());
+    },
+    [dispatch]
+  );
 
   return (
     <header className="header">
@@ -43,13 +52,7 @@ function Header(): JSX.Element {
                   </a>
                 </li>
                 <li className="header__nav-item">
-                  <Link
-                    onClick={(evt) => {
-                      evt.preventDefault();
-                      dispatch(logoutAction());
-                    }}
-                    to="/"
-                  >
+                  <Link onClick={handleLogout} to="/">
                     <span className="header__signout">Sign out</span>
                   </Link>
                 </li>
@@ -76,4 +79,5 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+const MemoizedHeader = memo(Header);
+export default MemoizedHeader;

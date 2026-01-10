@@ -7,7 +7,7 @@ import { APIRoute, AppRoute, TIMEOUT_SHOW_ERROR } from '../const';
 import { AuthDate } from '../types/auth-data';
 import { AuthInfo } from '../types/auth-info';
 import { dropToken, saveToken } from '../services/token';
-import { Reviews } from '../types/reviews';
+import { Reviews, Review, ReviewData } from '../types/reviews';
 import { setError } from './main-data/main-data';
 
 export const clearErrorAction = createAsyncThunk<
@@ -116,5 +116,21 @@ export const fetchOfferReviewsAction = createAsyncThunk<
   }
 >('data/fetchOfferReviews', async (offerId, { extra: api }) => {
   const { data } = await api.get<Reviews>(APIRoute.Reviews(offerId));
+  return data;
+});
+
+export const sendOfferReviewAction = createAsyncThunk<
+  Review,
+  { offerId: OfferId; reviewData: ReviewData },
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/sendOfferReview', async ({ offerId, reviewData }, { extra: api }) => {
+  const { data } = await api.post<Review>(
+    APIRoute.SendReview(offerId),
+    reviewData
+  );
   return data;
 });

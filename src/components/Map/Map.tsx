@@ -1,6 +1,6 @@
 import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, memo } from 'react';
 import useMap from '../../hooks/useMap';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import { City } from '../../types/city';
@@ -56,4 +56,5 @@ function Map({ city, offers, variant, selectedOffer }: MapProps): JSX.Element {
   return <section className={`${variant} map`} ref={mapRef}></section>;
 }
 
-export default Map;
+const MemoizedMap = memo(Map);
+export default MemoizedMap;
