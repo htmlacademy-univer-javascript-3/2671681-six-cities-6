@@ -42,21 +42,23 @@ function Header(): JSX.Element {
             {authorizationStatus === AuthorizationStatus.Auth ? (
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a
+                  <Link
                     className="header__nav-link header__nav-link--profile"
-                    href="#"
+                    to={AppRoute.Favorites}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <Link to={AppRoute.Favorites}>
-                      <span className="header__user-name user__name">
-                        {authInfo?.email}
-                      </span>
-                    </Link>
+                    <span className="header__user-name user__name">
+                      {authInfo?.email}
+                    </span>
                     <span className="header__favorite-count">{favoritesCount}</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
-                  <Link onClick={handleLogout} to="/">
+                  <Link
+                    className="header__nav-link"
+                    onClick={handleLogout}
+                    to="/"
+                  >
                     <span className="header__signout">Sign out</span>
                   </Link>
                 </li>
@@ -64,15 +66,13 @@ function Header(): JSX.Element {
             ) : (
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a
+                  <Link
                     className="header__nav-link header__nav-link--profile"
-                    href="#"
+                    to={AppRoute.Login}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <Link to={AppRoute.Login}>
-                      <span className="header__login">Sign in</span>
-                    </Link>
-                  </a>
+                    <span className="header__login">Sign in</span>
+                  </Link>
                 </li>
               </ul>
             )}

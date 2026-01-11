@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import Header from './Header';
+import Header from './header';
 import { rootReducer } from '../../store/root-reducer';
 import { NameSpace, DefaultCity, AuthorizationStatus } from '../../const';
 import { makeFakeAuthInfo, makeFakeOfferBase } from '../../utils/test-mocks';

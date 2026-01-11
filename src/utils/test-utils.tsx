@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import { Action } from 'redux';
 import React from 'react';
 import { configureStore } from '@reduxjs/toolkit';
-import HistoryRouter from '../components/HistoryRouter/HistoryRouter';
+import HistoryRouter from '../components/history-router/history-router';
 import { createAPI } from '../services/api';
 import { State } from '../types/state';
 import { AppThunkDispatch } from './test-mocks';

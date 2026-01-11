@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import App from './app';
 import { withStore } from '../utils/test-utils';
 import { makeFakeStore } from '../utils/make-fake-store';
 import { makeFakeOfferBase, makeFakeOfferFull, makeFakeAuthInfo, makeFakeReview } from '../utils/test-mocks';
@@ -13,7 +13,6 @@ vi.mock('../services/process-error-handle', () => ({
 
 describe('Application Routing', () => {
   beforeEach(() => {
-    // Reset browserHistory before each test
     if (browserHistory.location.pathname !== '/') {
       browserHistory.replace('/');
     }

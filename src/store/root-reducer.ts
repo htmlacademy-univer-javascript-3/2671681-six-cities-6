@@ -9,5 +9,5 @@ export const rootReducer = combineReducers({
   [NameSpace.Main]: mainData.reducer,
   [NameSpace.Offer]: offerData.reducer,
   [NameSpace.User]: userProcess.reducer,
-  [NameSpace.Favorite]:favoriteData.reducer
+  [NameSpace.Favorite]: favoriteData.reducer
 });

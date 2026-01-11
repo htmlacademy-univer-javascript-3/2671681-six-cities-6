@@ -1,14 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
-import MainPage from '../pages/MainPage/MainPage';
-import LoginPage from '../pages/LoginPage/LoginPage';
-import FavoritesPage from '../pages/FavoritesPage/FavoritesPage';
-import OfferPage from '../pages/OfferPage/OfferPage';
-import NotFound from '../pages/NotFound/NotFound';
-import PrivateRoute from '../components/PrivateRoute/PrivateRoute';
+import MainPage from '../pages/main-page/main-page';
+import LoginPage from '../pages/login-page/login-page';
+import FavoritesPage from '../pages/favorites-page/favorites-page';
+import OfferPage from '../pages/offer-page/offer-page';
+import NotFound from '../pages/not-found/not-found';
+import PrivateRoute from '../components/private-route/private-route';
 import { AppRoute } from '../const';
 import { useAppSelector } from '../hooks';
-import Spinner from '../components/Spinner/Spinner';
-import HistoryRouter from '../components/HistoryRouter/HistoryRouter';
+import Spinner from '../components/spinner/spinner';
+import HistoryRouter from '../components/history-router/history-router';
 import browserHistory from '../browser-history';
 import { getIsOffersDataLoading } from '../store/main-data/selectors';
 
