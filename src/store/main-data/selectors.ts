@@ -1,3 +1,4 @@
+import { createSelector } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { State } from '../../types/state';
 
@@ -15,8 +16,7 @@ export const getIsOffersDataLoading = (state: State) =>
 export const getError = (state: State) =>
   state[NameSpace.Main].error;
 
-export const getCityOffers = (state: State) => {
-  const offers = state[NameSpace.Main].offers;
-  const city = state[NameSpace.Main].city;
-  return offers.filter((offer) => offer.city.name === city.name);
-};
+export const getCityOffers = createSelector(
+  [getOffers, getCity],
+  (offers, city) => offers.filter((offer) => offer.city.name === city.name)
+);
