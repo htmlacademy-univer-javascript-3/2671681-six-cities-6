@@ -24,12 +24,11 @@ function LoginPage(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const randomCity = pickRandom(CITIES) ?? DefaultCity;
+  const dispatch = useAppDispatch();
 
   const handleMainPageRedirect = () => {
     dispatch(setCity(randomCity));
   };
-
-  const dispatch = useAppDispatch();
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 

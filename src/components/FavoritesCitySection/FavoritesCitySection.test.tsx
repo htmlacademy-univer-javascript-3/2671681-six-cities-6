@@ -1,13 +1,16 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import FavoritesCitySection from './FavoritesCitySection';
 import { makeFakeOfferBase } from '../../utils/test-mocks';
 import { CityNames } from '../../const';
+import { OfferBase } from '../../types/offers';
 
 vi.mock('../FavoriteOfferCard/FavoriteOfferCard', () => ({
   __esModule: true,
-  default: ({ offer }: { offer: any }) => <div data-testid="favorite-offer-card">{offer.title}</div>,
+  default: ({ offer }: { offer: OfferBase }) => (
+    <div data-testid="favorite-offer-card">{offer.title}</div>
+  ),
 }));
 
 describe('Component: FavoritesCitySection', () => {

@@ -29,7 +29,7 @@ describe('Component: BookmarkButton', () => {
     render(
       <BookmarkButton
         variant="offer"
-        isActive={true}
+        isActive
         width={31}
         height={33}
         onClick={onClick}

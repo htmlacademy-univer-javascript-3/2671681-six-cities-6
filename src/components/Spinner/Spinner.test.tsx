@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import Spinner from './Spinner';
 
 describe('Component: Spinner', () => {
@@ -18,7 +18,9 @@ describe('Component: Spinner', () => {
   it('should render spinner element', () => {
     const { container } = render(<Spinner />);
 
-    const spinnerElement = container.querySelector('div[style*="width: 40px"]') as HTMLElement;
+    const spinnerElement = container.querySelector(
+      'div[style*="width: 40px"]'
+    ) as HTMLElement;
     expect(spinnerElement).toBeInTheDocument();
     expect(spinnerElement).toHaveStyle({
       width: '40px',

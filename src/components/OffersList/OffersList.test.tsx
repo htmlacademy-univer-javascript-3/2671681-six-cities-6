@@ -4,10 +4,11 @@ import OffersList from './OffersList';
 import { CityNames } from '../../const';
 import { makeFakeOfferBase } from '../../utils/test-mocks';
 import { SortType } from '../SortOptions/sort-constants';
+import { OfferBase } from '../../types/offers';
 
 vi.mock('../OfferCard/OfferCard', () => ({
   __esModule: true,
-  default: ({ offer }: { offer: any }) => <div data-testid="offer-card">{offer.title}</div>,
+  default: ({ offer }: { offer: OfferBase }) => <div data-testid="offer-card">{offer.title}</div>,
 }));
 
 vi.mock('../SortOptions/SortOptions', () => ({

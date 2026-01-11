@@ -12,29 +12,27 @@ vi.mock('../../services/process-error-handle', () => ({
 }));
 
 describe('Component: ReviewsList', () => {
-  const createStore = (initialState?: Partial<ReturnType<typeof rootReducer>>) => {
-    return configureStore({
-      reducer: rootReducer,
-      preloadedState: {
-        [NameSpace.Offer]: {
-          offer: null,
-          nearbyOffers: [],
-          reviews: [],
-          isOfferDataLoading: false,
-          isNearbyOffersDataLoading: false,
-          isReviewsDataLoading: false,
-          isReviewDataPosting: false,
-        },
-        [NameSpace.Main]: {
-          city: DefaultCity,
-          offers: [],
-          isOffersDataLoading: false,
-          error: null,
-        },
-        ...initialState,
+  const createStore = (initialState?: Partial<ReturnType<typeof rootReducer>>) => configureStore({
+    reducer: rootReducer,
+    preloadedState: {
+      [NameSpace.Offer]: {
+        offer: null,
+        nearbyOffers: [],
+        reviews: [],
+        isOfferDataLoading: false,
+        isNearbyOffersDataLoading: false,
+        isReviewsDataLoading: false,
+        isReviewDataPosting: false,
       },
-    });
-  };
+      [NameSpace.Main]: {
+        city: DefaultCity,
+        offers: [],
+        isOffersDataLoading: false,
+        error: null,
+      },
+      ...initialState,
+    },
+  });
 
   beforeEach(() => {
     vi.clearAllMocks();

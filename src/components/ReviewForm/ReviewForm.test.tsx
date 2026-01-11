@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import ReviewForm from './ReviewForm';
 import { rootReducer } from '../../store/root-reducer';
-import { NameSpace, DefaultCity, MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH } from '../../const';
+import { NameSpace, DefaultCity, MIN_COMMENT_LENGTH } from '../../const';
 import { makeFakeOfferFull } from '../../utils/test-mocks';
 
 vi.mock('../../services/process-error-handle', () => ({
@@ -12,29 +12,27 @@ vi.mock('../../services/process-error-handle', () => ({
 }));
 
 describe('Component: ReviewForm', () => {
-  const createStore = (initialState?: Partial<ReturnType<typeof rootReducer>>) => {
-    return configureStore({
-      reducer: rootReducer,
-      preloadedState: {
-        [NameSpace.Offer]: {
-          offer: makeFakeOfferFull(),
-          nearbyOffers: [],
-          reviews: [],
-          isOfferDataLoading: false,
-          isNearbyOffersDataLoading: false,
-          isReviewsDataLoading: false,
-          isReviewDataPosting: false,
-        },
-        [NameSpace.Main]: {
-          city: DefaultCity,
-          offers: [],
-          isOffersDataLoading: false,
-          error: null,
-        },
-        ...initialState,
+  const createStore = (initialState?: Partial<ReturnType<typeof rootReducer>>) => configureStore({
+    reducer: rootReducer,
+    preloadedState: {
+      [NameSpace.Offer]: {
+        offer: makeFakeOfferFull(),
+        nearbyOffers: [],
+        reviews: [],
+        isOfferDataLoading: false,
+        isNearbyOffersDataLoading: false,
+        isReviewsDataLoading: false,
+        isReviewDataPosting: false,
       },
-    });
-  };
+      [NameSpace.Main]: {
+        city: DefaultCity,
+        offers: [],
+        isOffersDataLoading: false,
+        error: null,
+      },
+      ...initialState,
+    },
+  });
 
   beforeEach(() => {
     vi.clearAllMocks();

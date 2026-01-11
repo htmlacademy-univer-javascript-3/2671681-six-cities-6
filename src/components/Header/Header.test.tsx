@@ -13,29 +13,27 @@ vi.mock('../../services/process-error-handle', () => ({
 }));
 
 describe('Component: Header', () => {
-  const createStore = (initialState?: Partial<ReturnType<typeof rootReducer>>) => {
-    return configureStore({
-      reducer: rootReducer,
-      preloadedState: {
-        [NameSpace.Main]: {
-          city: DefaultCity,
-          offers: [],
-          isOffersDataLoading: false,
-          error: null,
-        },
-        [NameSpace.User]: {
-          authorizationStatus: AuthorizationStatus.NoAuth,
-          authInfo: null,
-        },
-        [NameSpace.Favorite]: {
-          offers: [],
-          isOffersDataLoading: false,
-          isOfferStatusUpdating: false,
-        },
-        ...initialState,
+  const createStore = (initialState?: Partial<ReturnType<typeof rootReducer>>) => configureStore({
+    reducer: rootReducer,
+    preloadedState: {
+      [NameSpace.Main]: {
+        city: DefaultCity,
+        offers: [],
+        isOffersDataLoading: false,
+        error: null,
       },
-    });
-  };
+      [NameSpace.User]: {
+        authorizationStatus: AuthorizationStatus.NoAuth,
+        authInfo: null,
+      },
+      [NameSpace.Favorite]: {
+        offers: [],
+        isOffersDataLoading: false,
+        isOfferStatusUpdating: false,
+      },
+      ...initialState,
+    },
+  });
 
   beforeEach(() => {
     vi.clearAllMocks();

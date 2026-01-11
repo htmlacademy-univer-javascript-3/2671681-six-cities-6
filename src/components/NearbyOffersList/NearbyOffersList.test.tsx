@@ -1,12 +1,13 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import NearbyOffersList from './NearbyOffersList';
 import { makeFakeOfferBase } from '../../utils/test-mocks';
+import { OfferBase } from '../../types/offers';
 
 vi.mock('../OfferCard/OfferCard', () => ({
   __esModule: true,
-  default: ({ offer }: { offer: any }) => <div data-testid="nearby-offer-card">{offer.title}</div>,
+  default: ({ offer }: { offer: OfferBase }) => <div data-testid="nearby-offer-card">{offer.title}</div>,
 }));
 
 describe('Component: NearbyOffersList', () => {

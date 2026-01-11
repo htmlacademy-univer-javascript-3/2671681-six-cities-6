@@ -1,7 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render } from '@testing-library/react';
 import MainContainer from './MainContainer';
 import { makeFakeOfferBase, makeFakeCity } from '../../utils/test-mocks';
+import { OfferBase } from '../../types/offers';
 
 vi.mock('../Map/Map', () => ({
   __esModule: true,
@@ -10,7 +11,7 @@ vi.mock('../Map/Map', () => ({
 
 vi.mock('../OffersList/OffersList', () => ({
   __esModule: true,
-  default: ({ offers, activeCity }: { offers: any[]; activeCity: string }) => (
+  default: ({ offers, activeCity }: { offers: OfferBase[]; activeCity: string }) => (
     <div data-testid="offers-list">
       <span>{offers.length} offers in {activeCity}</span>
     </div>
